@@ -1,6 +1,6 @@
 {
   "name": "phunt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Product Hunt Command Line Client",
   "main": "index.js",
   "author": "Wahyu Kristianto <w.kristories@gmail.com>",
