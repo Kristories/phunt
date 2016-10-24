@@ -147,28 +147,51 @@ function start(token, username){
    * Get the tech posts of today
    */
   vorpal
-  .command('posts', 'Get the tech posts of today')
+  .command('posts [category]', 'Get the posts of specific category, default to show all category')
   .action(function(args, callback) {
-    unirest
-    .get(api_url + '/posts')
-    .header({
-      'Accept'        : 'application/json',
-      'Content-Type'  : 'application/json',
-      'Authorization' : 'Bearer ' + token
-    })
-    .end(function (response) {
-      var body    = response.body;
-      var posts   = body.posts;
+    if(args.category){
+      unirest
+      .get(api_url + '/posts/all?search[category]=' + args.category)
+      .header({
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'Bearer ' + token
+      })
+      .end(function (response) {
+        var body    = response.body;
+        var posts   = body.posts;
 
-      for (var i in posts) {
-        vorpal.log(chalk.bold.blue('\n- ' + posts[i].name));
-        vorpal.log('  ' + chalk.italic(posts[i].tagline));
-        vorpal.log('  ' + emoji.get(':heart:') + ' ' + posts[i].votes_count + '   ' + emoji.get(':thought_balloon:') + ' ' + posts[i].comments_count);
-        vorpal.log('  ' + chalk.italic.underline.dim(posts[i].discussion_url) + '\n');
-      }
+        for (var i in posts) {
+          vorpal.log(chalk.bold.blue('\n- ' + posts[i].name));
+          vorpal.log('  ' + chalk.italic(posts[i].tagline));
+          vorpal.log('  ' + emoji.get(':heart:') + ' ' + posts[i].votes_count + '   ' + emoji.get(':thought_balloon:') + ' ' + posts[i].comments_count);
+          vorpal.log('  ' + chalk.italic.underline.dim(posts[i].discussion_url) + '\n');
+        }
 
-      callback();
-    });
+        callback();
+      });
+    } else {
+      unirest
+      .get(api_url + '/posts')
+      .header({
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'Bearer ' + token
+      })
+      .end(function (response) {
+        var body    = response.body;
+        var posts   = body.posts;
+
+        for (var i in posts) {
+          vorpal.log(chalk.bold.blue('\n- ' + posts[i].name));
+          vorpal.log('  ' + chalk.italic(posts[i].tagline));
+          vorpal.log('  ' + emoji.get(':heart:') + ' ' + posts[i].votes_count + '   ' + emoji.get(':thought_balloon:') + ' ' + posts[i].comments_count);
+          vorpal.log('  ' + chalk.italic.underline.dim(posts[i].discussion_url) + '\n');
+        }
+
+        callback();
+      });
+    }
   });
 
   vorpal.delimiter('@' + username + ' => ').show();
