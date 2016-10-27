@@ -171,6 +171,29 @@ function start(token, username){
     });
   });
 
+  /**
+   * Me Posts
+   * See all posts created by current user
+   */
+  vorpal
+  .command('me posts', 'See all posts created by current user')
+  .action(function(args, callback) {
+    me(token, function(response){
+      var posts = response.body.user.posts;
+
+      posts.forEach(function(post) {
+        vorpal.log('\n  ' + chalk.bold.blue(post.name));
+        vorpal.log('  ' + chalk.italic(post.tagline));
+        vorpal.log('  ' + chalk.dim('Votes') + ': ' +
+                  chalk.bold(post.votes_count) + '   ' +
+                  chalk.dim('Comments') + ': ' +
+                  chalk.bold(post.comments_count));
+        vorpal.log('  ' + chalk.italic.underline.dim(post.discussion_url) + '\n');
+      })
+      callback();
+    });
+  });
+
   vorpal.delimiter('@' + username + ' => ').show();
 }
 
