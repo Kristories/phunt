@@ -82,6 +82,28 @@ function me(token, cb){
   });
 }
 
+/**
+ * Show posts from specific category
+ * @param  {String}   token
+ * @param  {Function} cb
+ */
+function posts(token, category, cb){
+  var endpoint_url = '/posts';
+  if (category) {
+    endpoint_url = '/posts/all?search[category]=' + category;
+  }
+  unirest
+  .get(api_url + endpoint_url)
+  .header({
+    'Accept'        : 'application/json',
+    'Content-Type'  : 'application/json',
+    'Authorization' : 'Bearer ' + token
+  })
+  .end(function (response) {
+    cb(response)
+  });
+}
+
 
 /**
  * Splash screen
@@ -145,18 +167,12 @@ function start(token, username){
   /**
    * Posts
    * Get the tech posts of today
+   * If [category] is empty, then show all category
    */
   vorpal
-  .command('posts', 'Get the tech posts of today')
+  .command('posts [category]', 'Get the posts of specific category, default to show all category')
   .action(function(args, callback) {
-    unirest
-    .get(api_url + '/posts')
-    .header({
-      'Accept'        : 'application/json',
-      'Content-Type'  : 'application/json',
-      'Authorization' : 'Bearer ' + token
-    })
-    .end(function (response) {
+    posts(token, args.category, function(response){
       var body    = response.body;
       var posts   = body.posts;
 
@@ -166,7 +182,6 @@ function start(token, username){
         vorpal.log('  ' + emoji.get(':heart:') + ' ' + posts[i].votes_count + '   ' + emoji.get(':thought_balloon:') + ' ' + posts[i].comments_count);
         vorpal.log('  ' + chalk.italic.underline.dim(posts[i].discussion_url) + '\n');
       }
-
       callback();
     });
   });
