@@ -27,7 +27,7 @@ For the first time, you are required to enter your **Developer Token** (**NOT AP
 - [ ] `me products` (See all posts made by by current user)
 - [x] `posts` (Get the tech posts of today)
 - [x] `posts {category}` Get the posts of today (for given category)
-- [ ] `posts new` (Get all the newest posts)
+- [x] `posts new` (Get all the newest posts)
 
 
 ## FAQ

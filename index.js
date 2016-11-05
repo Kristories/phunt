@@ -83,14 +83,18 @@ function me(token, cb){
 }
 
 /**
- * Show posts from specific category
+ * Show posts from a query.
  * @param  {String}   token
  * @param  {Function} cb
  */
-function posts(token, category, cb){
+function posts(token, query, cb){
   var endpoint_url = '/posts';
-  if (category) {
-    endpoint_url = '/posts/all?search[category]=' + category;
+  if (query) {
+    if (query == 'all') {
+      endpoint_url = '/posts/all';
+    } else {
+      endpoint_url = '/posts/all?search[category]=' + query;
+    }
   }
   unirest
   .get(api_url + endpoint_url)
@@ -173,6 +177,27 @@ function start(token, username){
   .command('posts [category]', 'Get the posts of specific category, default to show all category')
   .action(function(args, callback) {
     posts(token, args.category, function(response){
+      var body    = response.body;
+      var posts   = body.posts;
+
+      for (var i in posts) {
+        vorpal.log(chalk.bold.blue('\n- ' + posts[i].name));
+        vorpal.log('  ' + chalk.italic(posts[i].tagline));
+        vorpal.log('  ' + emoji.get(':heart:') + ' ' + posts[i].votes_count + '   ' + emoji.get(':thought_balloon:') + ' ' + posts[i].comments_count);
+        vorpal.log('  ' + chalk.italic.underline.dim(posts[i].discussion_url) + '\n');
+      }
+      callback();
+    });
+  });
+
+  /**
+   * Posts
+   * Get all the (50) newest posts
+   */
+  vorpal
+  .command('posts new', 'Get all the (50) newest posts')
+  .action(function(args, callback) {
+    posts(token, 'all', function(response){
       var body    = response.body;
       var posts   = body.posts;
 
