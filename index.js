@@ -9,7 +9,6 @@ var inquirer    = require('inquirer');
 var chalk       = require('chalk');
 var wrap        = require('wordwrap')(60);
 var emoji       = require('node-emoji');
-
 var config_file = oshd() + '/.phunt';
 var api_url     = 'https://api.producthunt.com/v1';
 
@@ -242,7 +241,7 @@ function start(token, username){
   .command('me products', 'See all products created by current user')
   .action(function(args, callback) {
     me(token, function(response){
-      var makerOf = response.body.user.makerOf;
+      var makerOf = response.body.user.maker_of;
 
       makerOf.forEach(function(product) {
         vorpal.log('\n  ' + chalk.bold.blue(product.name));
