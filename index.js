@@ -9,7 +9,6 @@ var inquirer    = require('inquirer');
 var chalk       = require('chalk');
 var wrap        = require('wordwrap')(60);
 var emoji       = require('node-emoji');
-
 var config_file = oshd() + '/.phunt';
 var api_url     = 'https://api.producthunt.com/v1';
 
@@ -234,9 +233,31 @@ function start(token, username){
     });
   });
 
+  /**
+   * Me Products
+   * See all Products created by current user
+   */
+  vorpal
+  .command('me products', 'See all products created by current user')
+  .action(function(args, callback) {
+    me(token, function(response){
+      var makerOf = response.body.user.maker_of;
+
+      makerOf.forEach(function(product) {
+        vorpal.log('\n  ' + chalk.bold.blue(product.name));
+        vorpal.log('  ' + chalk.italic(product.tagline));
+        vorpal.log('  ' + chalk.dim('Votes') + ': ' +
+                  chalk.bold(product.votes_count) + '   ' +
+                  chalk.dim('Comments') + ': ' +
+                  chalk.bold(product.comments_count));
+        vorpal.log('  ' + chalk.italic.underline.dim(product.discussion_url) + '\n');
+      })
+      callback();
+    });
+  });
+
   vorpal.delimiter('@' + username + ' => ').show();
 }
-
 
 // Here we go!
 init();
