@@ -1,6 +1,4 @@
-# PHUNT
-
-> *Product Hunt Command Line Client*
+# PHUNT <a href="https://www.producthunt.com/posts/medium-widget-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-medium-widget-2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=132189&theme=light" alt="Medium Widget - Unofficial articles feed widget for Medium | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
 
 [![asciicast](https://asciinema.org/a/33953.png)](https://asciinema.org/a/33953)
 
