@@ -1,8 +1,6 @@
 <p align="center">
   <img alt="Phunt" src="assets/header.png"/>
-  <a href="https://www.producthunt.com/posts/medium-widget-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-medium-widget-2" target="_blank">
-    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=132189&theme=light" alt="Medium Widget - Unofficial articles feed widget for Medium | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" />
-  </a><br>
+  <a href="https://www.producthunt.com/posts/phunt?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-phunt" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=47632&theme=dark" alt="Phunt - Product Hunt command line interface | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a><br>
   <a href="https://github.com/vorpaljs/awesome-vorpal" target="_blank">
     <img src="https://awesome.re/mentioned-badge.svg">
   </a>
